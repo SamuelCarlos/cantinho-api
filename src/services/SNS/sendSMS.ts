@@ -10,14 +10,12 @@ const sendSMS = async (message: string, phone: string) => {
       })
       .promise();
 
-    const a = await sns
+    await sns
       .publish({
         Message: message,
         PhoneNumber: `+55${phone}`,
       })
       .promise();
-
-    console.log(a);
   } catch (err) {
     console.error(err);
   }

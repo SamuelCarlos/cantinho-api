@@ -19,8 +19,13 @@ import { BuyEvent } from '../controllers/event/buy';
 import { CreateUser } from '../controllers/user/create';
 import { Signin } from '../controllers/auth/signin';
 
+import { ResendSMS } from '../controllers/auth/resendSMS';
+import { VerifyUser } from '../controllers/user/verify';
+
 router.post('/users', CreateUser);
 router.post('/auth/signin', Signin);
+router.post('/auth/verify', VerifyUser);
+router.post('/auth/resendSMS', ResendSMS);
 
 router.use(ensureUserAuthenticated);
 
