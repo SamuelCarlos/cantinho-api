@@ -4,6 +4,11 @@
     "module": "commonjs",
     "target": "ES2021",
     "esModuleInterop": true,
-    "allowJs": true
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
   }
 }
