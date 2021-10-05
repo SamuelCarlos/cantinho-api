@@ -43,9 +43,7 @@ export const CreateUser = async (req: Request, res: Response, next: NextFunction
 
     await newUser.save();
 
-    const token = await generateToken(newUser);
-
-    return res.status(201).json({ message: 'Usuário criado com sucesso', token });
+    return res.status(201).json({ message: 'Usuário criado com sucesso' });
   } catch (error) {
     console.error(error);
   }

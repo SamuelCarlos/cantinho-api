@@ -25,7 +25,9 @@ export const ResendSMS = async (req: Request, res: Response, next: NextFunction)
       .join('')
       .toUpperCase();
 
-    existentUser = Object.assign(existentUser, { verification_token });
+    existentUser = Object.assign(existentUser, { verification_token, is_verified: false });
+
+    await existentUser.save();
 
     const phoneNumber = phone.replace(/[^0-9]/g, '');
 

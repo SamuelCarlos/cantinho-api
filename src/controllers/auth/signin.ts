@@ -16,7 +16,7 @@ export const Signin = async (req: Request, res: Response, next: NextFunction) =>
 
     const existentUser = await User.findOne({ phone });
 
-    if (!existentUser) return res.status(422).json({ message: 'Usuário não existente' });
+    if (!existentUser) return res.status(404).json({ message: 'Usuário não existente' });
 
     if (!existentUser.is_verified) return res.status(422).json({ message: 'Usuário não verificado' });
 
