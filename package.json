@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "ts-node src/index.ts",
     "start": "ts-node-dev src/index.ts",
     "test": "jest",
     "test:staged": "jest"
@@ -53,6 +53,7 @@
     "mongoose": "^6.0.7",
     "nodemon": "^2.0.13",
     "qrcode": "^1.4.4",
+    "ts-node": "^10.2.1",
     "uuid": "^8.3.2",
     "yup": "^0.32.9"
   }
