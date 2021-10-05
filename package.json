@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "12.x",
+    "yarn": "1.x"
+  },
   "scripts": {
     "start": "node dist/index.js",
     "postinstall": "tsc && cd dist/ && rm -v -rf src",
