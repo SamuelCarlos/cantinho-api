@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "tsc": "tsc",
-    "start:prod": "node build/server.js",
-    "start": "ts-node-dev src/index.ts",
+    "start": "tsc && cd dist/ && node src/server.js",
+    "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
     "test": "jest",
     "test:staged": "jest"
   },
