@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc && cd dist/",
-    "start": "src/index.js",
+    "start": "tsc && cd dist/ && src/index.js",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
     "test": "jest",
     "test:staged": "jest"
