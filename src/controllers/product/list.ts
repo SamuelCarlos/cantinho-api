@@ -29,10 +29,8 @@ export const ListProducts = async (req: Request, res: Response, next: NextFuncti
 
     if (parsedParams.search !== null) searchParams = { name: { $regex: search, $options: 'i' } };
     if (parsedParams.with_deleted === false) searchParams = { ...searchParams, deleted_at: null };
-
     searchParams = { ...searchParams, user_SKU: userSKU };
-
-    let products = await Product.find(searchParams)
+    const products = await Product.find(searchParams)
       .skip(parsedParams.step * (parsedParams.page - 1))
       .limit(parsedParams.step)
       .select(['-states', '-__v', '-user_SKU', '-_id'])

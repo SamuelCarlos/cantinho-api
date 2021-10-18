@@ -22,6 +22,7 @@ const CreateProductSchema = yup.object().shape({
   name: yup.string().required(),
   buy_price: yup.string().required(),
   sell_price: yup.string().required(),
+  sell_price_cash: yup.string().required(),
   inventory: yup.number().required(),
 });
 
@@ -63,16 +64,15 @@ const uploadQR = async (SKU: string) => {
 };
 
 export const CreateProduct = async (req: Request, res: Response, next: NextFunction) => {
-  const { name, buy_price, sell_price, inventory } = req.body;
+  const { name, buy_price, sell_price, sell_price_cash, inventory } = req.body;
 
   const token = getToken(req);
   const { userSKU } = decodeToken(token);
 
   try {
-    await CreateProductSchema.validate({ name, buy_price, sell_price, inventory })
+    await CreateProductSchema.validate({ name, buy_price, sell_price, sell_price_cash, inventory })
       .then()
       .catch((error) => {
-        console.log(error);
         return res.status(422).json({ [error.path]: error.message });
       });
 
@@ -88,6 +88,7 @@ export const CreateProduct = async (req: Request, res: Response, next: NextFunct
       name,
       buy_price,
       sell_price,
+      sell_price_cash,
       inventory,
       qr_code: qr,
       created_at,
@@ -97,7 +98,7 @@ export const CreateProduct = async (req: Request, res: Response, next: NextFunct
 
     const NewProduct = await new Product({
       ...ProductData,
-      states: [{ name, buy_price, sell_price, created_at, deleted_at: null }],
+      states: [{ name, buy_price, sell_price, sell_price_cash, created_at, deleted_at: null }],
     });
 
     await NewProduct.save();

@@ -12,7 +12,7 @@ const Product = connection.model('product', productSchema);
 export const UpdateProduct = async (req: Request, res: Response, next: NextFunction) => {
   const { SKU } = req.params;
 
-  const { name, buy_price, sell_price, inventory, created_at } = req.body;
+  const { name, buy_price, sell_price, sell_price_cash, inventory, created_at } = req.body;
 
   const token = getToken(req);
   const { userSKU } = decodeToken(token);
@@ -31,6 +31,7 @@ export const UpdateProduct = async (req: Request, res: Response, next: NextFunct
     if (name) newProductData = { ...newProductData, name };
     if (buy_price) newProductData = { ...newProductData, buy_price };
     if (sell_price) newProductData = { ...newProductData, sell_price };
+    if (sell_price_cash) newProductData = { ...newProductData, sell_price_cash };
     if (inventory) newProductData = { ...newProductData, inventory };
     if (created_at) newProductData = { ...newProductData, created_at };
 
@@ -47,6 +48,7 @@ export const UpdateProduct = async (req: Request, res: Response, next: NextFunct
           name: name || product.name,
           buy_price: buy_price || product.buy_price,
           sell_price: sell_price || product.sell_price,
+          sell_price_cash: sell_price_cash || product.sell_price_cash,
           created_at: created_at || product.created_at,
           deleted_at: null,
         },

@@ -11,6 +11,7 @@ import { DeleteProduct } from '../controllers/product/delete';
 import { ListProducts } from '../controllers/product/list';
 import { UpdateProduct } from '../controllers/product/update';
 import { ReadProduct } from '../controllers/product/read';
+import { ReactivateProduct } from '../controllers/product/reactivate';
 
 import { SellEvent } from '../controllers/event/sell';
 import { ListEvents } from '../controllers/event/list';
@@ -30,7 +31,8 @@ router.post('/auth/resendSMS', ResendSMS);
 router.use(ensureUserAuthenticated);
 
 router.post('/product', CreateProduct);
-router.delete('/product', DeleteProduct);
+router.delete('/product/:SKU', DeleteProduct);
+router.post('/product/:SKU', ReactivateProduct);
 router.get('/products', ListProducts);
 router.put('/product/:SKU', UpdateProduct);
 router.get('/product/:SKU', ReadProduct);

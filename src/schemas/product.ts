@@ -10,6 +10,7 @@ export interface ProductData {
   name: string;
   buy_price: number;
   sell_price: number;
+  sell_price_cash: number;
   inventory: number;
   qr_code: string;
   created_at: Date;
@@ -39,6 +40,10 @@ export const productSchema = new mongoose.Schema<Product>({
     required: true,
   },
   sell_price: {
+    type: Number,
+    required: true,
+  },
+  sell_price_cash: {
     type: Number,
     required: true,
   },

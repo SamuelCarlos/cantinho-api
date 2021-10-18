@@ -4,6 +4,7 @@ import { ProductData } from './product';
 
 export interface EventData {
   type: 'buy' | 'sell';
+  sell_type: 'cash' | 'portion' | null;
   quantity: number;
   discount: number | null;
   created_at: Date;
@@ -12,6 +13,10 @@ export interface EventData {
 
 export const eventSchema = new mongoose.Schema<EventData>({
   type: {
+    type: String,
+    required: true,
+  },
+  sell_type: {
     type: String,
     required: true,
   },
@@ -44,6 +49,10 @@ export const eventSchema = new mongoose.Schema<EventData>({
       required: true,
     },
     sell_price: {
+      type: Number,
+      required: true,
+    },
+    sell_price_cash: {
       type: Number,
       required: true,
     },

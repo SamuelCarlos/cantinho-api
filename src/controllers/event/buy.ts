@@ -27,9 +27,10 @@ export const BuyEvent = async (req: Request, res: Response, next: NextFunction) 
 
     if (quantity <= 0) return res.status(400).json({ message: 'Quantity deve ser maior que 0' });
 
-    let newEvent = await new Event({
+    const newEvent = await new Event({
       type: 'buy',
       quantity,
+      sell_type: null,
       discount: null,
       created_at: new Date(),
       product: {
@@ -38,6 +39,7 @@ export const BuyEvent = async (req: Request, res: Response, next: NextFunction) 
         name: product.name,
         buy_price: product.buy_price,
         sell_price: product.sell_price,
+        sell_price_cash: product.sell_price_cash,
         inventory: product.inventory,
         qr_code: product.qr_code,
       },
@@ -51,6 +53,6 @@ export const BuyEvent = async (req: Request, res: Response, next: NextFunction) 
 
     return res.status(201).json({ message: 'Evento gerado com sucesso!' });
   } catch (error) {
-    console.error(error);
+    return res.status(500).json(error);
   }
 };

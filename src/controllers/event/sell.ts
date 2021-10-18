@@ -13,7 +13,7 @@ const Product = connection.model('product', productSchema);
 
 export const SellEvent = async (req: Request, res: Response, next: NextFunction) => {
   const { SKU } = req.params;
-  const { quantity = 1, discount = null } = req.body;
+  const { quantity = 1, discount = 0, sell_type = 'cash' } = req.body;
 
   const token = getToken(req);
   const { userSKU } = decodeToken(token);
@@ -30,8 +30,12 @@ export const SellEvent = async (req: Request, res: Response, next: NextFunction)
     if (product.inventory < quantity || product.inventory === 0)
       return res.status(422).json({ message: 'Não existe essa quantidade disponível em estoque' });
 
-    let newEvent = await new Event({
+    if (sell_type !== 'cash' && sell_type !== 'portion')
+      return res.status(422).json({ message: 'Tipo de venda deve ser cash ou portion' });
+
+    const newEvent = await new Event({
       type: 'sell',
+      sell_type,
       quantity,
       discount,
       created_at: new Date(),
@@ -41,6 +45,7 @@ export const SellEvent = async (req: Request, res: Response, next: NextFunction)
         name: product.name,
         buy_price: product.buy_price,
         sell_price: product.sell_price,
+        sell_price_cash: product.sell_price_cash,
         inventory: product.inventory,
         qr_code: product.qr_code,
       },
@@ -54,6 +59,6 @@ export const SellEvent = async (req: Request, res: Response, next: NextFunction)
 
     return res.status(201).json({ message: 'Evento gerado com sucesso!' });
   } catch (error) {
-    console.error(error);
+    return res.status(500).json(error);
   }
 };
